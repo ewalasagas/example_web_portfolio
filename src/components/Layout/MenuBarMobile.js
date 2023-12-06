@@ -8,14 +8,14 @@ import logo from '@/img/logo.svg'
 
 export default function MenuBarMobile({ setter }) {
     return (
-        <nav className="md:hidden z-20 fixed top-0 left-0 right-0 h-[60px] bg-black flex [&>*]:my-auto px-2">
+        <nav className="md:hidden z-20 fixed top-0 left-0 right-0 h-[60px] bg-white flex [&>*]:my-auto px-2">
             <button
-                className="text-4xl flex text-white"
+                className="text-4xl flex text-black"
                 onClick={() => {
                     setter(oldVal => !oldVal);
                 }}
             >
-                <Icon />
+              <Icon />
             </button>
             <Link href="/" className="mx-auto">
                 {/*eslint-disable-next-line*/}
@@ -27,7 +27,7 @@ export default function MenuBarMobile({ setter }) {
                 />
             </Link>
             <Link
-                className="text-3xl flex text-white"
+                className="text-3xl flex text-black"
                 href="/login"
             >
                 <FaUser />
