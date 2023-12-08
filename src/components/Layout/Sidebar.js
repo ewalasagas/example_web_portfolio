@@ -28,7 +28,8 @@ export default function Sidebar({ show, setter }) {
                 onClick={() => {
                     setter(oldVal => !oldVal);
                 }}
-                className={`flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+                className={`text-2xl flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+                style={{ fontFamily: 'Bebas Neue', fontSize: '1.2rem'}}
             >
                 <div>{name}</div>
             </Link>
@@ -47,7 +48,7 @@ export default function Sidebar({ show, setter }) {
 
     return (
         <>
-            <div className={`${className}${appendClass}`}>
+            <div className={`${className}${appendClass} `}>
                 <div className="p-20 flex "  width={300} height={300} >
                 
                 
