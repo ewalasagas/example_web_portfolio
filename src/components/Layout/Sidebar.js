@@ -20,8 +20,15 @@ export default function Sidebar({ show, setter }) {
     // Clickable menu items
     const MenuItem = ({ icon, name, route }) => {
         // Highlight menu item based on currently displayed route
-        const colorClass = router.pathname === route ? "border-l-4 border-black" : "text-black/50 hover:text-black";
-
+        const [showSubItems, setShowSubItems] = useState(false);
+        const colorClass = router.pathname === route ? "" : "text-black/50 hover:text-black";
+        const lineSelected = {
+            border: '1px solid #000',
+            margin: '20px 0', // Adjust as needed
+            width: '20px',
+            visibility: router.pathname === route ? 'visible' : 'hidden'
+          };
+          
         return (
             <Link
                 href={route}
@@ -31,6 +38,7 @@ export default function Sidebar({ show, setter }) {
                 className={`text-2xl flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
                 style={{ fontFamily: 'Bebas Neue', fontSize: '1.2rem'}}
             >
+                <hr style={lineSelected} />
                 <div>{name}</div>
             </Link>
         )
