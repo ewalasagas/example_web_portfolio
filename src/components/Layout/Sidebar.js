@@ -18,31 +18,58 @@ export default function Sidebar({ show, setter }) {
     const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
 
     // Clickable menu items
-    const MenuItem = ({ icon, name, route }) => {
-        // Highlight menu item based on currently displayed route
+    const MenuItem = ({ icon, name, route, subItems }) => {
         const [showSubItems, setShowSubItems] = useState(false);
+    
         const colorClass = router.pathname === route ? "" : "text-black/50 hover:text-black";
         const lineSelected = {
-            border: '1px solid #000',
-            margin: '20px 0', // Adjust as needed
-            width: '20px',
-            visibility: router.pathname === route ? 'visible' : 'hidden'
+          border: '1px solid #000',
+          margin: '20px 0',
+          width: '20px',
+          visibility: router.pathname === route ? 'visible' : 'hidden',
+        };
+    
+        const handleItemClick = () => {
+            console.log('handleItemClick called');
+            setShowSubItems(!showSubItems);
+            console.log('After Toggle:', showSubItems);
           };
-          
+    
         return (
+          <div>
             <Link
-                href={route}
-                onClick={() => {
-                    setter(oldVal => !oldVal);
-                }}
-                className={`text-2xl flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
-                style={{ fontFamily: 'Bebas Neue', fontSize: '1.2rem'}}
+              href={route}
+              onClick={() => {
+                setter(oldVal => !oldVal);
+              }}
+              className={`text-2xl flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+              style={{ fontFamily: 'Bebas Neue', fontSize: '1.2rem' }}
             >
-                <hr style={lineSelected} />
-                <div>{name}</div>
+              <hr style={lineSelected} />
+              <div onClick={handleItemClick}>{name}</div>
             </Link>
-        )
-    }
+    
+            {showSubItems && (
+              <div>
+                {subItems.map((subItem, index) => (
+                    
+                  <Link
+                    key={subItem.id}
+                    href={subItem.route}
+                    onClick={() => {
+                      setter(oldVal => !oldVal);
+                    }}
+                    className={`text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+                    style={{ fontFamily: 'Bebas Neue', fontSize: '1rem' }}
+                  >
+                    {subItem.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      };
 
     // Overlay to prevent clicks in background, also serves as our close button
     const ModalOverlay = () => (
@@ -70,19 +97,22 @@ export default function Sidebar({ show, setter }) {
                     />
                     </div>
                     <MenuItem
-                        name="T-Shirts"
-                        route="/t-shirts"
-                        icon={<FaTshirt />}
+                    
+                        name="About"
+                        route="/about"
+                        icon={<BsInfoSquare />}
+                    />
+                    <MenuItem
+                        name="Achievements"
+                        route="/achievements"
+                        subItems={[
+                            { id: 1, name: 'Awards', route: '/achievements/awards' },
+                          ]}
                     />
                     <MenuItem
                         name="Hats"
                         route="/hats"
                         icon={<FaRedhat />}
-                    />
-                    <MenuItem
-                        name="About Us"
-                        route="/about"
-                        icon={<BsInfoSquare />}
                     />
                     <MenuItem
                         name="Contact"
